@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <complex>
+#include <bitset>
+#include <string>
+
+using namespace std;
+
+class QuantumState {
+public:
+    int qubits;
+    vector<complex<double>> state;
+
+    QuantumState(int n) {
+        qubits = n;
+        int size = 1 << n; // Efficiently computes 2^n
+        state.resize(size, 0.0);
+        state[0] = 1.0;    // Standard ground state |00...0>
+    }
+
+    // Helper function to convert integer index to binary string
+    string toBinary(int index) {
+        string b = bitset<16>(index).to_string(); // Handles up to 16 qubits safely
+        return b.substr(16 - qubits);             // Trim to match number of qubits
+    }
+
+    void displayState() {
+        cout << "Quantum State Vector:" << endl;
+        for (size_t i = 0; i < state.size(); i++) {
+        
+                cout << "|" << toBinary(i) << ">: " << state[i] << endl;
+        }
+    }
+
+    void showProbability() {
+        cout << "\nMeasurement Probabilities:" << endl;
+        for (size_t i = 0; i < state.size(); i++) {
+            double probability = norm(state[i]);
+            
+                cout << "State |" << toBinary(i) << ">: " << probability * 100 << "%" << endl;
+            
+        }
+    }
+};
+
+int main() {
+    QuantumState q(2); // 2 Qubits
+    q.displayState();
+    q.showProbability();
+    return 0;
+}
