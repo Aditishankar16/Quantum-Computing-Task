@@ -1,5 +1,5 @@
 # Quantum Circuit Simulator using C++
-
+part 4, 5 and 6 submitted in a google doc attached with the task .
 ## Overview
 
 This project implements a small quantum circuit simulator
